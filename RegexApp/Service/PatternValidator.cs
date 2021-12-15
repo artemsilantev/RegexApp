@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using RegexApp.Model;
 
 namespace RegexApp.Service
@@ -15,57 +16,49 @@ namespace RegexApp.Service
         public bool Validate(string text)
         {
             var currentToken = _tokens.First;
-            var i = 0;
             var currentTokenCount = 0;
-            while (currentToken != null)
+            var symbolsCount = 0;
+            for (int i = 0; i < text.Length && currentToken != null; i++)
             {
-                for (;
-                    i < text.Length && currentTokenCount <= currentToken.Value.maxCount
-                                    && currentToken.Value.isValid(text[i]);
-                    i++, currentTokenCount++)
+                symbolsCount = i;
+                if (currentToken.Value.isValid(text[i]))
                 {
+                    currentTokenCount++;
                 }
-
-                if (text.Length == i)
+                else
                 {
-                    return currentToken.Next == null || IsAllTokensBeUnimportant(currentToken);
-                }
+                    if (currentTokenCount < currentToken.Value.minCount ||
+                        currentTokenCount > currentToken.Value.maxCount)
+                    {
+                        return false;
+                    }
 
-                if (currentToken.Value.minCount > currentTokenCount)
-                {
-                    return false;
-                }
-
-                if (currentToken.Value.minCount == 0)
-                {
+                    currentTokenCount = 0;
                     currentToken = currentToken.Next;
-                    continue;
-                }
-
-                currentToken = currentToken.Next;
-                currentTokenCount = 0;
-                if (currentToken == null || !currentToken.Value.isValid(text[i]))
-                {
-                    return false;
                 }
             }
 
-            return true;
+            if (symbolsCount < text.Length - 1)
+            {
+                return false;
+            }
+            
+            return !IsUnnecessaryTokens(currentToken);
         }
 
-        private bool IsAllTokensBeUnimportant(LinkedListNode<Token> currentToken)
+        private bool IsUnnecessaryTokens(LinkedListNode<Token> currentToken)
         {
             while (currentToken != null)
             {
                 if (currentToken.Value.minCount != 0)
                 {
-                    return false;
+                    return true;
                 }
 
                 currentToken = currentToken.Next;
             }
 
-            return true;
+            return false;
         }
     }
 }
