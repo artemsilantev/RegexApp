@@ -18,11 +18,11 @@ namespace RegexApp.Service
             var currentToken = _tokens.First;
             var currentTokenCount = 0;
             var symbolsCount = 0;
-            for (int i = 0; i < text.Length && currentToken != null; i++)
+            while (symbolsCount < text.Length && currentToken != null)
             {
-                symbolsCount = i;
-                if (currentToken.Value.isValid(text[i]))
+                if (currentToken.Value.isValid(text[symbolsCount]))
                 {
+                    symbolsCount++;
                     currentTokenCount++;
                 }
                 else
@@ -38,12 +38,19 @@ namespace RegexApp.Service
                 }
             }
 
-            if (symbolsCount < text.Length - 1)
+
+            if (symbolsCount < text.Length)
             {
                 return false;
             }
-            
-            return !IsUnnecessaryTokens(currentToken);
+
+            switch (currentToken)
+            {
+                case null:
+                    return true;
+                default:
+                    return !IsUnnecessaryTokens(currentToken.Next);
+            }
         }
 
         private bool IsUnnecessaryTokens(LinkedListNode<Token> currentToken)

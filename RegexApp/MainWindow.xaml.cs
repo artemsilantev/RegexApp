@@ -12,7 +12,7 @@ namespace RegexApp
     /// </summary>
     public partial class MainWindow
     {
-        private const string Text = "Aa1cC";
+        private const string Text = "ABCAasdva11345ababccacCC";
         public MainWindow()
         {
             InitializeComponent();
