@@ -4,8 +4,13 @@ namespace RegexApp.Model
 {
     public abstract class Token
     {
-        public int minCount = 1;
-        public int maxCount = MaxValue;
+        public int MinCount { get; set; } = 1;
+        public int MaxCount { get; set; } = 1;
         public abstract bool isValid(char symbol);
+        
+        public enum TokenType
+        {
+            Letter, Number, Range, Symbol
+        }
     }
 }

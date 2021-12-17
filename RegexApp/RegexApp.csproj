@@ -50,6 +50,8 @@
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </ApplicationDefinition>
+        <Compile Include="Model\SymbolToken.cs" />
+        <Compile Include="Model\TokenFactory.cs" />
         <Compile Include="Service\PatternMatcherUtil.cs" />
         <Compile Include="Service\PatternValidator.cs" />
         <Page Include="MainWindow.xaml">

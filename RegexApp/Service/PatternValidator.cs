@@ -20,15 +20,15 @@ namespace RegexApp.Service
             var symbolsCount = 0;
             while (symbolsCount < text.Length && currentToken != null)
             {
-                if (currentToken.Value.isValid(text[symbolsCount]))
+                if (currentTokenCount < currentToken.Value.MaxCount && currentToken.Value.isValid(text[symbolsCount]))
                 {
                     symbolsCount++;
                     currentTokenCount++;
                 }
                 else
                 {
-                    if (currentTokenCount < currentToken.Value.minCount ||
-                        currentTokenCount > currentToken.Value.maxCount)
+                    if (currentTokenCount < currentToken.Value.MinCount ||
+                        currentTokenCount > currentToken.Value.MaxCount)
                     {
                         return false;
                     }
@@ -57,7 +57,7 @@ namespace RegexApp.Service
         {
             while (currentToken != null)
             {
-                if (currentToken.Value.minCount != 0)
+                if (currentToken.Value.MinCount != 0)
                 {
                     return true;
                 }

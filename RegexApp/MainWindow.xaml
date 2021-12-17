@@ -5,8 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RegexApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="600" Width="800">
     <Grid >
-        <Button x:Name="GO" Content="GO" FontSize="100" Click="GO_OnClick" ></Button>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="TextBox" Margin="5,30,5,30" TextWrapping="Wrap" Background="Transparent" 
+                     BorderBrush="DarkGray" BorderThickness="5" FontSize="25"></TextBox>
+            <ComboBox IsEditable="True" x:Name="ComboBox" Grid.Column="1" BorderBrush="Black" BorderThickness="5" Margin="5,30,5,30" FontSize="25"
+                      Background="Transparent"/>
+        </Grid>
+        <Label Grid.Row="1" HorizontalAlignment="Center" Foreground="DarkGray" FontSize="80" VerticalAlignment="Center" x:Name="Result" Content="ОТВЕТ" />
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Background="Transparent" BorderBrush="DarkOrange" BorderThickness="5" Margin="10" x:Name="GO" Content="ПРОВЕРИТЬ" FontSize="30"
+                    Click="GO_OnClick" />
+            <Button Grid.Column="1" Background="Transparent" BorderBrush="DodgerBlue" BorderThickness="5" Margin="10" x:Name="HELP" Content="ПОМОЩЬ" FontSize="30"
+                    Click="HELP_OnClick" />
+        </Grid>
     </Grid>
 </Window>
